@@ -1,0 +1,23 @@
+server:
+  port: 9001
+
+#应用名称及验证账号
+spring:
+  application:
+    name: api-passenger
+    admin:
+      enabled: true
+    redis:
+      database: 0
+      host: 127.0.0.1
+      port: 6379
+      timeout: 2000
+
+eureka:
+  client:
+    #设置服务注册中心的URL
+    service-url:
+      defaultZone: http://root:root@eureka-7900:7900/eureka/
+  instance:
+    hostname: localhost
+    instance-id: api-passenger
