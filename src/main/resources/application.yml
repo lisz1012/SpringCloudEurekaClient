@@ -12,7 +12,7 @@ spring:
 
 eureka:
   client:
-    #设置服务注册中心的URL
+    #设置服务注册中心的URL, 集群的话，向一个IP注册就行
     service-url:
       defaultZone: http://root:root@eureka-7901:7901/eureka/
   instance:
