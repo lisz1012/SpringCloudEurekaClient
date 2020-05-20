@@ -50,6 +50,12 @@
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
 
+    <!-- Client向Eureka Server发送连带生活质量（如DB是否正常）的时候的依赖 -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
     <!-- 引入hystrix依赖 -->
     <dependency>
       <groupId>org.springframework.cloud</groupId>

@@ -21,8 +21,9 @@ eureka:
       defaultZone: http://root:root@eureka-7901:7901/eureka/
     #在client端配置，将自己的将康状态传播到Server 健康检查组件（web）会显示哪里有问题了，也就是说心跳能告诉server
     #还活着，这里的healthcheck能告诉server生活质量。后面讲健康检查监控的时候会用到这个地方
-    #healthcheck:
-      #enabled: true
+    #http://localhost:9001/actuator/health http://localhost:9001/actuator/info
+    healthcheck:
+      enabled: true
     #Client自身的配置信息
   instance:
     hostname: localhost
