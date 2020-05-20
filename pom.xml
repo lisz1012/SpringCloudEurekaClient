@@ -44,6 +44,7 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- 想要用浏览器通过http的方式访问服务，需要引入这个依赖 -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>

@@ -15,7 +15,12 @@ eureka:
     #设置服务注册中心的URL, 集群的话，向一个IP注册就行, 会被封装成EurekaClientConfig，与Eureka服务器交互的
     service-url:
       defaultZone: http://root:root@eureka-7901:7901/eureka/
+    #在client端配置，将自己的将康状态传播到Server
+    #healthcheck:
+      #enabled: true
     #Client自身的配置信息
   instance:
     hostname: localhost
     instance-id: api-passenger
+    #prefer-ip-address: true
+    #ip-address: 127.0.0.1
