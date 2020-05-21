@@ -1,12 +1,17 @@
 package com.lisz.controller;
 
+import com.lisz.model.SMSMetaData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -31,6 +36,9 @@ public class ServiceInstanceController {
     @Autowired
     private DiscoveryClient discoveryClient;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @GetMapping("/hello")
     public void hello() {
         System.out.println("hello");
@@ -41,5 +49,22 @@ public class ServiceInstanceController {
         List<ServiceInstance> list = discoveryClient.getInstances(applicationName);
         System.out.println(list);
         return list;
+    }
+
+    @PostMapping("/get-message-by-id")
+    public Object getMessageById(@RequestParam int id) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        SMSMetaData request = new SMSMetaData(id);
+        if (id % 2 == 0) {
+            request.setType("HIGH_PRIORITY");
+        } else {
+            request.setType("regular");
+        }
+
+        //HttpEntity<SMSMetaData> request = new HttpEntity<SMSMetaData>(data, headers);
+        ResponseEntity<SMSMetaData> resultEntity = restTemplate.postForEntity("http://sms-service:9001/sms/metadata", request, SMSMetaData.class);
+        SMSMetaData smsMetaData = resultEntity.getBody();
+        return smsMetaData;
     }
 }
