@@ -57,13 +57,13 @@ public class ServiceInstanceController {
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         SMSMetaData request = new SMSMetaData(id);
         if (id % 2 == 0) {
-            request.setType("HIGH_PRIORITY");
+            request.setType("PAID");
         } else {
             request.setType("regular");
         }
 
         //HttpEntity<SMSMetaData> request = new HttpEntity<SMSMetaData>(data, headers);
-        ResponseEntity<SMSMetaData> resultEntity = restTemplate.postForEntity("http://sms-service:9001/sms/metadata", request, SMSMetaData.class);
+        ResponseEntity<SMSMetaData> resultEntity = restTemplate.postForEntity("http://sms-service:9002/sms/metadata", request, SMSMetaData.class);
         SMSMetaData smsMetaData = resultEntity.getBody();
         return smsMetaData;
     }

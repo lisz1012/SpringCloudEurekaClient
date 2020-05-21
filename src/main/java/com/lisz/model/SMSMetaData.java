@@ -8,6 +8,9 @@ public class SMSMetaData {
     private String content;
     private Date date;
 
+    public SMSMetaData() {
+    }
+
     public SMSMetaData(int id) {
         this.id = id;
     }
@@ -26,6 +29,8 @@ public class SMSMetaData {
     public void setType(String type) {
         this.type = type;
     }
+
+
 
     public void setContent(String content) {
         this.content = content;
