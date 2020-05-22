@@ -21,10 +21,10 @@ public class PassengerAPIApplication {
 
     public static void main( String[] args ) {
         SpringApplication.run(PassengerAPIApplication.class, args);
-        try {
+        /*try {
             System.in.read();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

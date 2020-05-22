@@ -1,6 +1,7 @@
 package com.lisz.controller;
 
 import com.lisz.model.SMSMetaData;
+import com.lisz.model.SMSMetaDataRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -55,7 +56,8 @@ public class ServiceInstanceController {
     public Object getMessageById(@RequestParam int id) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        SMSMetaData request = new SMSMetaData(id);
+        SMSMetaDataRequest request = new SMSMetaDataRequest();
+        request.setId(id);
         if (id % 2 == 0) {
             request.setType("PAID");
         } else {
