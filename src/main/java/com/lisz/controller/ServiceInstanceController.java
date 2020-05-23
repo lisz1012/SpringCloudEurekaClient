@@ -2,15 +2,14 @@ package com.lisz.controller;
 
 import com.lisz.model.SMSMetaData;
 import com.lisz.model.SMSMetaDataRequest;
+import com.lisz.service.remote.IndexService;
+import com.lisz.service.remote.SMSService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -40,6 +39,12 @@ public class ServiceInstanceController {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private IndexService indexService;
+
+    @Autowired
+    private SMSService smsService;
+
     @GetMapping("/hello")
     public void hello() {
         System.out.println("hello");
@@ -68,5 +73,19 @@ public class ServiceInstanceController {
         ResponseEntity<SMSMetaData> resultEntity = restTemplate.postForEntity("http://sms-service:9002/sms/metadata", request, SMSMetaData.class);
         SMSMetaData smsMetaData = resultEntity.getBody();
         return smsMetaData;
+    }
+
+    // Call Github的open API 拿到String
+    @GetMapping("/search-in-github/{query}")
+    public String searchInGithub(@PathVariable String query) {
+        return indexService.search(query);
+    }
+
+    @PostMapping("/get-metadata")
+    public SMSMetaData getMetadata(@RequestParam int id, @RequestParam String type) {
+        SMSMetaDataRequest request = new SMSMetaDataRequest();
+        request.setId(id);
+        request.setType(type);
+        return smsService.getSMSMetaData(request);
     }
 }
