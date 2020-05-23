@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  原文链接：https://blog.csdn.net/zhuyu19911016520/java/article/details/84933268
 
  在使用@FeignClient注解的时候 是默认使用了ribbon进行客户端的负载均衡的,默认的是随机的策略,那么如果我们想要更改策略的话,需要修改消费者yml中的配置,如下:
-stu-provide:  # 与server和eureka等是平级的
+stu-provide:  # 服务提供方的application name 与server和eureka等是平级的
       ribbon:
     #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #配置规则 随机
     #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询
