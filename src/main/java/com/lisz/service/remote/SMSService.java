@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
  原文链接：https://blog.csdn.net/zhuyu19911016520/java/article/details/84933268
 
  在使用@FeignClient注解的时候 是默认使用了ribbon进行客户端的负载均衡的,默认的是随机的策略,那么如果我们想要更改策略的话,需要修改消费者yml中的配置,如下:
+
+
 stu-provide:  # 服务提供方的application name 与server和eureka等是平级的
       ribbon:
     #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #配置规则 随机
@@ -25,6 +27,14 @@ stu-provide:  # 服务提供方的application name 与server和eureka等是平�
         OkToRetryOnAllOperations: true #对所有请求都进行重试
         MaxAutoRetriesNextServer: 2 #切换实例的重试次数
         MaxAutoRetries: 1 #对当前实例的重试次数
+
+
+随机:几个提供者间随机访问
+轮询:轮流访问
+重试:在一段时间内通过RoundRobinRule选择服务实例，一段时间内没有选择出服务则线程终止
+响应时间权重:根据平均响应时间来计算权重
+https://blog.csdn.net/yucaifu1989/article/details/105020317
+原文链接：https://blog.csdn.net/guoqiusheng/article/details/88898426
  */
 @FeignClient(name = "sms-service")
 public interface SMSService {
