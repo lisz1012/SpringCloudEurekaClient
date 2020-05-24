@@ -46,7 +46,7 @@ sms-service:
     #        以下两个属性详见 org.springframework.cloud.openfeign.ribbon.FeignLoadBalancer (extends AbstractLoadBalancerAwareClient，netflix 厉害了哈，
     #        SpringCloud给他的抽象类写实现, 其默认值见ribbon-core:2.3.0 com.netflix.client.config.DefaultClientConfigImpl,
     #        org.springframework.cloud.openfeign.ribbon.LoadBalancerFeignClient 中有对他们的操作)
-    ConnectTimeout: 500 #请求连接超时时间
+    ConnectTimeout: 500 #请求连接超时时间 (默认2000 ms)
     ReadTimeout: 1000 #请求处理的超时时间
     OkToRetryOnAllOperations: true #对所有请求都进行重试 见ribbon-loadbalancer:2.3.0 源码：com.netflix.loadbalancer.client.AbstractLoadBalancerAwareClient
     MaxAutoRetriesNextServer: 2 #切换实例的重试次数
