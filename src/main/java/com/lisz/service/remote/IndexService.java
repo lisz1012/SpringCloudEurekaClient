@@ -24,6 +24,7 @@ stu-provide:  # 与server和eureka等是平级的
         MaxAutoRetriesNextServer: 2 #切换实例的重试次数
         MaxAutoRetries: 1 #对当前实例的重试次数
  */
+// 访问的第三方API完整路径是：https://api.github.com/search/repositories?q=spring-cloud 其中spring-cloud要等待参数的传入
 @FeignClient(name = "search-github", url="https://api.github.com")
 public interface IndexService {
     @GetMapping("/search/repositories")
