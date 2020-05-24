@@ -34,9 +34,20 @@ eureka:
 #在使用@FeignClient注解的时候 是默认使用了ribbon进行客户端的负载均衡的,默认的是随机的策略,那么如果我们想要更改策略的话,需要修改消费者yml中的配置,如下:
 sms-service:
   ribbon:
+    #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #配置规则 随机
+    #        详见 ribbon-loadbalancer:2.3.0 源码：com.netflix.loadbalancer.RandomRule
+    #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询
+    #        详见 ribbon-loadbalancer:2.3.0 源码：com.netflix.loadbalancer.RoundRobinRule （其中nextServerIndex 使用AtomicInteger以CAS的方式实现，确保线程安全）
+    #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #配置规则 重试
+    #        详见 ribbon-loadbalancer:2.3.0 源码：com.netflix.loadbalancer.RetryRule
+    #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #配置规则 响应时间权重
+    #        详见 ribbon-loadbalancer:2.3.0 源码：com.netflix.loadbalancer.WeightedResponseTimeRule（extends RoundRobinRule）
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule #配置规则 最空闲连接策略
+    #        以下两个属性详见 org.springframework.cloud.openfeign.ribbon.FeignLoadBalancer (extends AbstractLoadBalancerAwareClient，netflix 厉害了哈，
+    #        SpringCloud给他的抽象类写实现, 其默认值见ribbon-core:2.3.0 com.netflix.client.config.DefaultClientConfigImpl,
+    #        org.springframework.cloud.openfeign.ribbon.LoadBalancerFeignClient 中有对他们的操作)
     ConnectTimeout: 500 #请求连接超时时间
     ReadTimeout: 1000 #请求处理的超时时间
-    OkToRetryOnAllOperations: true #对所有请求都进行重试
+    OkToRetryOnAllOperations: true #对所有请求都进行重试 见ribbon-loadbalancer:2.3.0 源码：com.netflix.loadbalancer.client.AbstractLoadBalancerAwareClient
     MaxAutoRetriesNextServer: 2 #切换实例的重试次数
     MaxAutoRetries: 1 #对当前实例的重试次数
