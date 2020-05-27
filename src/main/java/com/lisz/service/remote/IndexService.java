@@ -10,8 +10,11 @@ Feign原理：我们首先会添加@EnableFeignClients注解开启对 FeignClien
 生成具体的RequestTemplate，RequestTemplate生成Request，交给URLConnection处理，并结合LoadBalanceClient与Ribbon，以负载均衡的方式发起服务间的调用
 原文链接：https://blog.csdn.net/zhuyu19911016520/java/article/details/84933268
 
+ribbon 1.知道自己请求的目的地 2.获取所有服务端地址列表（注册表） 3.选出一个地址，找到主机名对应的IP、port（将主机名对应到ip和port上） 4.发起实际请求
+ribbon是SpringCloud中负载均衡机制的实现。也可以单独使用
+
 在使用@FeignClient注解的时候 是默认使用了ribbon进行客户端的负载均衡的,默认的是随机的策略,那么如果我们想要更改策略的话,需要修改消费者yml中的配置,如下:
-stu-provide:  # 与server和eureka等是平级的
+stu-provide:  # 与server和eureka等是平级的. ribbon是客户端的负载均衡
       ribbon:
     #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #配置规则 随机
     #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询
