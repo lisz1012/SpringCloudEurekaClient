@@ -16,7 +16,7 @@ import java.io.IOException;
 public class PassengerAPIApplication {
 
     @Bean
-    @LoadBalanced // 这个注解原理是加了一个拦截器
+    @LoadBalanced // 这个注解原理是加了一个拦截器, 获取URL，通过LB设置选一个ServiceInstance，通过service name获取到IP和端口
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
