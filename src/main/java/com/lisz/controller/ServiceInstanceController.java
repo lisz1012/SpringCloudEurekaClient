@@ -70,7 +70,7 @@ public class ServiceInstanceController {
         }
 
         //HttpEntity<SMSMetaData> request = new HttpEntity<SMSMetaData>(data, headers);
-        ResponseEntity<SMSMetaData> resultEntity = restTemplate.postForEntity("http://sms-service:9002/sms/metadata", request, SMSMetaData.class);
+        ResponseEntity<SMSMetaData> resultEntity = restTemplate.postForEntity("http://sms-service/sms/metadata", request, SMSMetaData.class);// 这里sms-service后面写的端口号将被忽略
         SMSMetaData smsMetaData = resultEntity.getBody();
         return smsMetaData;
     }
