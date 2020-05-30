@@ -33,9 +33,13 @@ eureka:
 
 #在使用@FeignClient注解的时候 是默认使用了ribbon进行客户端的负载均衡的,默认的是随机的策略,那么如果我们想要更改策略的话,需要修改消费者yml中的配置,如下:
 sms-service:
+  # ILoadBalancer是ribbon最核心的一个类，它是在spring-cloud-netflix-ribbon：2.1.3 中的RibbonClientConfiguration中配置的，向SpringIOC容器中注入ILoadBalancer。
+  # ribbon底层也用到了okhttp
+  # ribbon-loadbalancer:2.3.0 中的DynamicServerListLoadBalancer初始化类的时候执行了服务列表的拉取
+  # 服务器都选取好了，发请求的时候挂了，这时候会报错，通过将来"熔断"的知识来解决
   ribbon:
     #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #配置规则 随机
-    #        详见 ribbon-loadbalancer:2.3.0 源码：com.netflix.loadbalancer.RandomRule
+    #        详见 ribbon-loadbalancer:2.3.0 源码：com.netflix.loadbalancer.RandomRule lb.getReachableServers(); 和lb.getAllServers();保证了拿到的都是可用的
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询
     #        详见 ribbon-loadbalancer:2.3.0 源码：com.netflix.loadbalancer.RoundRobinRule （其中nextServerIndex 使用AtomicInteger以CAS的方式实现，确保线程安全）
     #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #配置规则 重试

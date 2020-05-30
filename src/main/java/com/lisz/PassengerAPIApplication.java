@@ -16,7 +16,7 @@ import java.io.IOException;
 public class PassengerAPIApplication {
 
     @Bean
-    @LoadBalanced
+    @LoadBalanced // 这个注解原理是加了一个拦截器
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
