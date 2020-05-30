@@ -37,6 +37,8 @@ sms-service:
   # ribbon底层也用到了okhttp
   # ribbon-loadbalancer:2.3.0 中的DynamicServerListLoadBalancer初始化类的时候执行了服务列表的拉取
   # 服务器都选取好了，发请求的时候挂了，这时候会报错，通过将来"熔断"的知识来解决
+  # postForEntity -> execute方法跟进去，InterceptingClientHttpRequest.InterceptingRequestExecution 的execute方法里调用了所有interceptors的intercept方法，其中就有LoadBalancerInterceptor
+  #（implements ClientHttpRequestInterceptor）
   ribbon:
     #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #配置规则 随机
     #        详见 ribbon-loadbalancer:2.3.0 源码：com.netflix.loadbalancer.RandomRule lb.getReachableServers(); 和lb.getAllServers();保证了拿到的都是可用的
