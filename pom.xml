@@ -58,7 +58,7 @@
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
 
-    <!--<dependency>
+    <!--<dependency> Remove ribbon dependency since eureka client already contains it
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
     </dependency>-->
