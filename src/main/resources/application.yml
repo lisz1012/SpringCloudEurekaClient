@@ -57,6 +57,15 @@ sms-service:
     OkToRetryOnAllOperations: true #对所有请求都进行重试 见ribbon-loadbalancer:2.3.0 源码：com.netflix.loadbalancer.client.AbstractLoadBalancerAwareClient
     MaxAutoRetriesNextServer: 2 #切换实例的重试次数
     MaxAutoRetries: 1 #对当前实例的重试次数
-#    eureka:
+
+#    http: # 默认请求发起是HttpURLConnection，true的意思是改成HttpClient
+#      client:
+#        enabled: true
+    okhttp: # 改成OKHttpClient
+      enabled: true
+#    eager-load: #已启动就拉取配置，默认是true
+#      enable: false
+
+#    eureka: # 不用eureka，要自己给出服务器列表
 #      enable: false
 #    listOfServers: 127.0.0.1:9002,127.0.0.1:9003

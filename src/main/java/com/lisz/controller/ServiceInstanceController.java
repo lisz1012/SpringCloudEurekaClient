@@ -4,9 +4,12 @@ import com.lisz.model.SMSMetaData;
 import com.lisz.model.SMSMetaDataRequest;
 import com.lisz.service.remote.IndexService;
 import com.lisz.service.remote.SMSService;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +38,9 @@ public class ServiceInstanceController {
 
     @Autowired
     private DiscoveryClient discoveryClient;
+
+    @Autowired
+    private LoadBalancerClient loadBalancerClient;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -87,5 +93,12 @@ public class ServiceInstanceController {
         request.setId(id);
         request.setType(type);
         return smsService.getSMSMetaData(request);
+    }
+
+    @GetMapping("/choseServiceName")
+    public void choseServiceName() {
+        String serviceName = "sms-service";
+        ServiceInstance si = loadBalancerClient.choose(serviceName);
+        System.out.println(ToStringBuilder.reflectionToString(si, ToStringStyle.MULTI_LINE_STYLE));
     }
 }
