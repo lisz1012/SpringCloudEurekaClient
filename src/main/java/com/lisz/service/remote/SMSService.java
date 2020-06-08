@@ -36,7 +36,7 @@ stu-provide:  # 服务提供方的application name 与server和eureka等是平�
 https://blog.csdn.net/yucaifu1989/article/details/105020317
 原文链接：https://blog.csdn.net/guoqiusheng/article/details/88898426
  */
-@FeignClient(name = "sms-service")
+@FeignClient(name = "sms-service") //Eureka中注册的服务提供者的spring.application.name
 public interface SMSService {
     @PostMapping("/sms/metadata") // 跟Controller中的restTemplate.postForEntity调用的是同一个SMSService的Rest API，这里用了Feign，更加OOD
     SMSMetaData getSMSMetaData(@RequestBody SMSMetaDataRequest request);
