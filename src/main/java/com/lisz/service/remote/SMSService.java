@@ -26,7 +26,7 @@ stu-provide:  # 服务提供方的application name 与server和eureka等是平�
         ReadTimeout: 1000 #请求处理的超时时间
         OkToRetryOnAllOperations: true #对所有请求都进行重试
         MaxAutoRetriesNextServer: 2 #切换实例的重试次数
-        MaxAutoRetries: 1 #对当前实例的重试次数
+        MaxAutoRetries: 1 #对当前实例的重试次数。
 
 
 随机:几个提供者间随机访问
