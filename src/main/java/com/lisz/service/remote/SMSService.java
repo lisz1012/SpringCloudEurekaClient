@@ -41,3 +41,15 @@ public interface SMSService {
     @PostMapping("/sms/metadata") // 跟Controller中的restTemplate.postForEntity调用的是同一个SMSService的Rest API，这里用了Feign，更加OOD
     SMSMetaData getSMSMetaData(@RequestBody SMSMetaDataRequest request);
 }
+/*
+//AbstractResponse EnumerationResponse NumericResponse
+//EnumerationResponse eresp = (EnumerationResponse) post()
+
+public AbstractResponse post() {
+    if (id.contains("ENUM...")) {
+        // ...
+        return new EnumerationResponse(...);
+    } else {
+        return new NumericResponse(...);
+    }
+}*/
